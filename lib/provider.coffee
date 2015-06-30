@@ -62,21 +62,21 @@ module.exports =
       catch e
         continue
       if stat.isDirectory()
-        label = 'Dir'
+        rightLabel = 'Dir'
         result += path.sep
       else if stat.isFile()
-        label = 'File'
+        rightLabel = 'File'
       else
         continue
 
       suggestion =
-        word: result
-        prefix: prefix
-        label: label
+        text: result
+        replacementPrefix: prefix
+        rightLabel: rightLabel
         data:
           body: result
-      if suggestion.label isnt 'File'
-        suggestion.onDidConfirm = ->
+      if suggestion.rightLabel isnt 'File'
+        suggestion.onDidInsertSuggestion = ->
           atom.commands.dispatch(atom.views.getView(editor), 'autocomplete-plus:activate')
 
       suggestion
